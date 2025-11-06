@@ -14,9 +14,11 @@ export const useCountdown = (startTime: number, now: number) => {
       ? minutes > 0
         ? `-${minutes}m ${formattedSeconds}s`
         : `-${formattedSeconds}s`
-      : minutes > 0
+      : minutes === 0
+      ? `${formattedSeconds}s`
+      : minutes < 5
       ? `${minutes}m ${formattedSeconds}s`
-      : `${formattedSeconds}s`;
+      : `${minutes}m`;
 
     return { text, isPast };
   }, [startTime, now]);

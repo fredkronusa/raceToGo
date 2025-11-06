@@ -53,10 +53,14 @@ In the project directory, you can run the following commands:
 ## 📜 Todo
 - investigate why races jump positions when they have same (advertised_start)
 - Test and add stories to UI components
+- Investigate why late at night all races have same expiry seconds (weird)
 
 
 ## 📜 Assumptions
-- Neds have a different approach to pooling data from their next race api (https://api.neds.com.au/v2/racing/next-races-category-group?count=10). Seems the pooling is done when it matters, delayed/cancelled races and the fact that “next to go” can shuffle. For the sake of simplicity, with the given requirement, a new call is only triggered once a race is not shown to the user reducing the amount of calls. This feature can be implements at a later stage when a timeframe requirement is needed
+- Neds have a different approach to pooling data from their next race api (https://api.neds.com.au/v2/racing/next-races-category-group?count=10). Seems the pooling is done when it matters, delayed/cancelled races and the fact that “next to go” can shuffle. For the sake of simplicity, with the given requirement, a new call is only triggered once a race is not shown to the user reducing the amount of calls. This feature can be implements at a later stage when a timeframe requirement is needed. Also, Neds have a different API call when a single category is selected and there are no races included in the the next 10 (HomepageNextToJumpRaces&extensions) which triggers the next 10 races for a specific category
+
+## 📜 Little extra
+- Following the pattern, a race to go at Neds only show seconds if under 5 min
 
 ## 📜 Thanks (to be removed)
 - An thanks for the opportunity to showcase my skills. I am really keen on getting my hands on VUE.

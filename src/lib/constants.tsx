@@ -4,6 +4,9 @@ import { HorseIcon } from "@/components/icons/HorseIcon";
 import { type RaceCategory } from "@/lib/types";
 
 export const API_URL = "/api/races";
+export const RACE_EXPIRATION_SECONDS = 60;
+export const RACES_TO_SHOW = 5;
+export const MIN_RACES_PER_CATEGORY = 5;
 
 export const RACE_CATEGORIES: RaceCategory[] = [
   {

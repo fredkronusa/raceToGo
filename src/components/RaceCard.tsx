@@ -9,8 +9,6 @@ interface RaceCardProps {
 }
 
 const RaceCard = ({ race, now }: RaceCardProps) => {
-  console.log("Fred RaceCard", now);
-
   const category = RACE_CATEGORIES.find((c) => c.id === race.category_id);
 
   return (

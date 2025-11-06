@@ -32,6 +32,16 @@ describe("useCountdown", () => {
     expect(result.current).toEqual({ text: "-09s", isPast: true });
   });
 
+  it("shows only mins for races that start time is over 5 minutes ", () => {
+    // 300s in the future => 5m
+    const nowMs = 10000;
+    const startTimeSec = Math.floor((nowMs + 300000) / 1000);
+
+    const { result } = renderHook(() => useCountdown(startTimeSec, nowMs));
+
+    expect(result.current).toEqual({ text: "5m", isPast: false });
+  });
+
   it("formats a past time over a minute with minutes and padded seconds", () => {
     // 65s in the past => -1m 05s
     const nowMs = 10000;
