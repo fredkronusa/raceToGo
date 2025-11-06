@@ -10,14 +10,14 @@ interface CategoryFilterProps {
 
 const CategoryFilter = ({ selectedCategories, onCategoryToggle }: CategoryFilterProps) => {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2 md:gap-4 pb-4">
+    <div className="flex flex-col items-center justify-between gap-2 md:gap-4 pb-4 md:flex-row">
       {RACE_CATEGORIES.map((category) => (
         <Button
           key={category.id}
           variant={selectedCategories.includes(category.id) ? "default" : "outline"}
           size="lg"
           onClick={() => onCategoryToggle(category.id)}
-          className="flex-grow sm:flex-grow-0 transition-all duration-200 transform hover:scale-105"
+          className="w-full transition-all duration-200 transform hover:scale-105"
           aria-pressed={selectedCategories.includes(category.id)}
         >
           <category.icon className="mr-2 h-2 w-2" />

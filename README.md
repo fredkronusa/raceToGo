@@ -54,6 +54,7 @@ In the project directory, you can run the following commands:
 - investigate why races jump positions when they have same (advertised_start)
 - Test and add stories to UI components
 - Investigate why late at night all races have same expiry seconds (weird)
+- remove tailwind helper - just don't like it (another day)
 
 
 ## 📜 Assumptions
