@@ -58,7 +58,7 @@ In the project directory, you can run the following commands:
 ## 📜 Assumptions
 - Neds have a different approach to pooling data from their next race api (https://api.neds.com.au/v2/racing/next-races-category-group?count=10). Seems the pooling is done when it matters, delayed/cancelled races and the fact that “next to go” can shuffle. For the sake of simplicity, with the given requirement, a new call is only triggered once a race is not shown to the user reducing the amount of calls. This feature can be implements at a later stage when a timeframe requirement is needed
 
-## 📜 Thanks
-- Any thanks for the opportunity to showcase my skills. 
+## 📜 Thanks (to be removed)
+- An thanks for the opportunity to showcase my skills. I am really keen on getting my hands on VUE.
 
  
