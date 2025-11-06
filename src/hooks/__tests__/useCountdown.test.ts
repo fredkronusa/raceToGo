@@ -1,54 +1,44 @@
-import { renderHook, act } from "@testing-library/react";
+import { renderHook } from "@testing-library/react";
 import { useCountdown } from "@/hooks/useCountdown";
 
-describe("useCountdown (hook)", () => {
-  const FIXED_NOW_MS = 1000;
+describe("useCountdown", () => {
+  it("formats a future time with minutes and padded seconds", () => {
+    // 100s in the future => 1m 40s
+    const nowMs = 10000;
+    const startTimeSec = Math.floor((nowMs + 100000) / 1000);
 
-  beforeEach(() => {
-    jest.useFakeTimers();
-    jest.setSystemTime(new Date(FIXED_NOW_MS));
+    const { result } = renderHook(() => useCountdown(startTimeSec, nowMs));
+
+    expect(result.current).toEqual({ text: "1m 40s", isPast: false });
   });
 
-  afterEach(() => {
-    jest.useRealTimers();
+  it("formats a future time under a minute without minutes", () => {
+    // 7s in the future => 07s
+    const nowMs = 10000;
+    const startTimeSec = Math.floor((nowMs + 7000) / 1000);
+
+    const { result } = renderHook(() => useCountdown(startTimeSec, nowMs));
+
+    expect(result.current).toEqual({ text: "07s", isPast: false });
   });
 
-  it("shows correct time", () => {
-    // start in 90s
-    const startTime = Math.floor(FIXED_NOW_MS / 1000) + 90;
+  it("formats a past time under a minute with a leading minus and padded seconds", () => {
+    // 9s in the past => -09s
+    const nowMs = 10000;
+    const startTimeSec = Math.floor((nowMs - 9000) / 1000);
 
-    const { result } = renderHook(() => useCountdown(startTime));
+    const { result } = renderHook(() => useCountdown(startTimeSec, nowMs));
 
-    expect(result.current.text).toBe("1m 30s");
-    expect(result.current.isPast).toBe(false);
-
-    // Advance 40s
-    act(() => {
-      jest.advanceTimersByTime(40_000);
-      jest.setSystemTime(new Date(FIXED_NOW_MS + 40_000));
-    });
-
-    // Now 90s - 40s remaining
-    expect(result.current.text).toBe("50s");
-    expect(result.current.isPast).toBe(false);
+    expect(result.current).toEqual({ text: "-09s", isPast: true });
   });
 
-  it("shows negative time after passing startTime", () => {
-    // started 10s ago
-    const startTime = Math.floor(FIXED_NOW_MS / 1000) - 10;
+  it("formats a past time over a minute with minutes and padded seconds", () => {
+    // 65s in the past => -1m 05s
+    const nowMs = 10000;
+    const startTimeSec = Math.floor((nowMs - 65000) / 1000);
 
-    const { result } = renderHook(() => useCountdown(startTime));
+    const { result } = renderHook(() => useCountdown(startTimeSec, nowMs));
 
-    expect(result.current.text).toBe("-10s");
-    expect(result.current.isPast).toBe(true);
-
-    // Advance 70s -> -90s
-    act(() => {
-      jest.advanceTimersByTime(70_000);
-      jest.setSystemTime(new Date(FIXED_NOW_MS + 70_000));
-    });
-
-    expect(result.current.text).toBe("-20s");
-    expect(result.current.isPast).toBe(true);
+    expect(result.current).toEqual({ text: "-1m 05s", isPast: true });
   });
 });
