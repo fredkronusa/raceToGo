@@ -43,7 +43,7 @@ In the project directory, you can run the following commands:
 
 ## 📜 Use of AI
 - Initial scaffolding done with [genkit](https://firebase.google.com/docs/genkit/overview)
-- Tests have been initially done with AI and updated to a corporate standard
+- Tests have been initially done with AI and updated except useRaces hooks, that is fully AI with a small touch
 
 ## 📜 NOT Use of AI
 - refactor everything
