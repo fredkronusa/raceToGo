@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, cleanup } from "@testing-library/react";
-import CountdownTimer from "@/components/CountdownTimer"; // <-- adjust path if needed
+import CountdownTimer from "@/components/CountdownTimer";
 
 jest.mock("@/hooks/useCountdown", () => ({
   useCountdown: jest.fn(),
@@ -20,14 +20,11 @@ describe("CountdownTimer", () => {
     const props = { startTime: 1, now: 1 };
     render(<CountdownTimer {...props} />);
 
-    // Hook is called with the given props
     expect(useCountdown).toHaveBeenCalledWith(props.startTime, props.now);
 
-    // Renders text
     const el = screen.getByText("07s");
     expect(el).toBeInTheDocument();
 
-    // Has future class, not past class
     expect(el.className).toContain("text-accent-foreground");
     expect(el.className).not.toContain("text-destructive/80");
   });
@@ -44,7 +41,6 @@ describe("CountdownTimer", () => {
   });
 
   it("updates when the hook result changes on rerender", () => {
-    // First render: future
     (useCountdown as jest.Mock)
       .mockReturnValueOnce({ text: "10s", isPast: false })
       .mockReturnValueOnce({ text: "-01s", isPast: true });
@@ -52,7 +48,6 @@ describe("CountdownTimer", () => {
     const { rerender } = render(<CountdownTimer startTime={1} now={1} />);
     expect(screen.getByText("10s")).toBeInTheDocument();
 
-    // Rerender with different props (or same, either way the mock's next return is used)
     rerender(<CountdownTimer startTime={1} now={1} />);
 
     const el = screen.getByText("-01s");

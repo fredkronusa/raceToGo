@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { useCountdown } from "@/hooks/useCountdown";
 
 interface CountdownTimerProps {
-  startTime: number; // seconds
+  startTime: number; // ms
   now: number; // ms
 }
 
