@@ -1,13 +1,14 @@
+import { MS_PER_SECOND, SECONDS_PER_MINUTE } from "@/lib/constants";
 import { useMemo } from "react";
 
 export const useCountdown = (startTime: number, now: number) => {
   return useMemo(() => {
-    const msRemaining = startTime * 1000 - now;
+    const msRemaining = startTime * MS_PER_SECOND - now;
     const isPast = msRemaining < 0;
 
-    const totalSeconds = Math.floor(Math.abs(msRemaining) / 1000);
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
+    const totalSeconds = Math.floor(Math.abs(msRemaining) / MS_PER_SECOND);
+    const minutes = Math.floor(totalSeconds / SECONDS_PER_MINUTE);
+    const seconds = totalSeconds % SECONDS_PER_MINUTE;
     const formattedSeconds = seconds.toString().padStart(2, "0");
 
     const text = isPast
@@ -15,10 +16,10 @@ export const useCountdown = (startTime: number, now: number) => {
         ? `-${minutes}m ${formattedSeconds}s`
         : `-${formattedSeconds}s`
       : minutes === 0
-      ? `${formattedSeconds}s`
-      : minutes < 5
-      ? `${minutes}m ${formattedSeconds}s`
-      : `${minutes}m`;
+        ? `${formattedSeconds}s`
+        : minutes < 5
+          ? `${minutes}m ${formattedSeconds}s`
+          : `${minutes}m`;
 
     return { text, isPast };
   }, [startTime, now]);

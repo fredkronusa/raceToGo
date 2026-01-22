@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useRaces } from "@/hooks/useRaces";
 import CategoryFilter from "@/components/CategoryFilter";
 import RaceList from "@/components/RaceList";
@@ -16,16 +16,19 @@ export default function Home() {
 
   const { races, isLoading, error } = useRaces(selectedCategories);
 
-  const handleCategoryToggle = (categoryId: string) => {
-    setSelectedCategories((prev) => {
-      const next = prev.includes(categoryId)
-        ? prev.filter((id) => id !== categoryId)
-        : [...prev, categoryId];
+  const handleCategoryToggle = useCallback(
+    (categoryId: string) => {
+      setSelectedCategories((prev) => {
+        const next = prev.includes(categoryId)
+          ? prev.filter((id) => id !== categoryId)
+          : [...prev, categoryId];
 
-      // Ensure at least one category is always selected or reset to initial state
-      return next.length > 0 ? next : initialSelectedCategories;
-    });
-  };
+        // Ensure at least one category is always selected or reset to initial state
+        return next.length > 0 ? next : initialSelectedCategories;
+      });
+    },
+    [initialSelectedCategories],
+  );
 
   if (isLoading && races.length === 0) {
     return <Spinner />;

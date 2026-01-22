@@ -2,6 +2,7 @@
 
 import { RACE_CATEGORIES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
+import { memo } from "react";
 
 interface CategoryFilterProps {
   selectedCategories: string[];
@@ -28,4 +29,4 @@ const CategoryFilter = ({ selectedCategories, onCategoryToggle }: CategoryFilter
   );
 };
 
-export default CategoryFilter;
+export default memo(CategoryFilter);

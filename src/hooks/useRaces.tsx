@@ -7,6 +7,7 @@ import {
   RACE_EXPIRATION_SECONDS,
   RACES_TO_SHOW,
   MIN_RACES_PER_CATEGORY,
+  MS_PER_SECOND,
 } from "@/lib/constants";
 
 export function useRaces(selectedCategories: string[]) {
@@ -15,7 +16,7 @@ export function useRaces(selectedCategories: string[]) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [nowSec, setNowSec] = useState(() => Date.now() / 1000);
+  const [nowSec, setNowSec] = useState(() => Date.now() / MS_PER_SECOND);
   const [expiryTick, setExpiryTick] = useState(0); // increments when a race drops off
 
   const inFlight = useRef(false);
@@ -25,7 +26,7 @@ export function useRaces(selectedCategories: string[]) {
   const lastExpiry = useRef(0);
 
   useEffect(() => {
-    const id = setInterval(() => setNowSec(Date.now() / 1000), 1000);
+    const id = setInterval(() => setNowSec(Date.now() / MS_PER_SECOND), MS_PER_SECOND);
     return () => clearInterval(id);
   }, []);
 

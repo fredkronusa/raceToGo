@@ -1,6 +1,7 @@
 import { type RaceSummary } from "@/lib/types";
 import RaceCard from "./RaceCard";
 import { useState, useEffect } from "react";
+import { MS_PER_SECOND } from "@/lib/constants";
 
 interface RaceListProps {
   races: RaceSummary[];
@@ -13,7 +14,7 @@ const RaceList = ({ races }: RaceListProps) => {
   useEffect(() => {
     const timer = setInterval(() => {
       setNow(Date.now());
-    }, 1000);
+    }, MS_PER_SECOND);
     return () => clearInterval(timer);
   }, []);
 
