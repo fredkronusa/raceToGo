@@ -1,6 +1,5 @@
 import { type RaceSummary } from "@/lib/types";
 import RaceCard from "./RaceCard";
-import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
 interface RaceListProps {
@@ -29,20 +28,11 @@ const RaceList = ({ races }: RaceListProps) => {
 
   return (
     <div className="grid gap-4">
-      <AnimatePresence initial={false}>
-        {racesToShow.map((race) => (
-          <motion.div
-            key={race.race_id}
-            layout
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <RaceCard race={race} now={now} />
-          </motion.div>
-        ))}
-      </AnimatePresence>
+      {racesToShow.map((race) => (
+        <div key={race.race_id} className="animate-fadeInUp">
+          <RaceCard race={race} now={now} />
+        </div>
+      ))}
     </div>
   );
 };
